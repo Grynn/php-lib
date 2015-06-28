@@ -1,0 +1,20 @@
+{
+    "name": "grynn/php-lib",
+    "description": "Utility classes and functions for PHP (no external dependencies)",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Vishal Doshi",
+            "email": "vishal.doshi@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Grynn\\PhpLib\\": "src/"
+        },
+        "files": [
+          "inc/functions.php"
+        ]
+    },
+    "require": {}
+}
