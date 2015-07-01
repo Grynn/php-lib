@@ -103,16 +103,27 @@ function userAgent() {
  */
 function badRequest($msg = "Bad Request", $code = 400, $detail = null)
 {
+	if (empty($code)) {
+		$code = 400;
+	}
+	if (empty($msg)) {
+		$msg = "Bad Request";
+	}
 	if (wantsJson()) {
 		header("Content-Type: application/json");
-		echo json_encode(['error' => $msg]);
+		$ret = ['error' => $msg];
+		if (!empty($detail)) {
+			$ret['detail'] = $detail;
+		}
+		echo json_encode($ret);
+		flush();
 		die;
 	} else {
-		header("HTTP/1.1 $code $msg");
+		header($msg, true, $code);
 		if (!empty($detail)) {
-			header("Content-Type: plain/text");
 			echo htmlentities($detail);
 		}
+		flush();
 		die;
 	}
 }
@@ -122,7 +133,9 @@ function jsonResponse($resp) {
 	echo json_encode($resp);
 }
 
-
+function render($file, $data) {
+	include normalizePath($file);  //$data will be available to view
+}
 
 function normalizePath($path)
 {
