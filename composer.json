@@ -1,7 +1,7 @@
 {
     "name": "grynn/php-lib",
     "description": "Utility classes and functions for PHP (no external dependencies)",
-    "license": "proprietary",
+    "license": "MIT",
     "authors": [
         {
             "name": "Vishal Doshi",
