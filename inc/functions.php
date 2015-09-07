@@ -11,6 +11,13 @@ function qw($x) {
 	return preg_split('/[\s,]+/', $x);
 }
 
+
+/**
+ * Returns true if $haystack starts with $needle
+ * @param $haystack	string
+ * @param $needle	string
+ * @return bool
+ */
 function startsWith($haystack, $needle)
 {
 	$length = strlen($needle);
@@ -18,8 +25,9 @@ function startsWith($haystack, $needle)
 }
 
 /**
- * Return true if client sends Accept header with application/json or
- * if the request is AJAX
+ * Return true if client sent an Accept header with application/json or
+ * if the request is AJAX (in which case we assume that the client wants to see
+ * JSON)
  * @return bool
  */
 function wantsJson() {
@@ -38,7 +46,7 @@ function wantsJson() {
 
 
 /**
- * Return true is SAPI is cli (i.e. php code is running via CLI)
+ * Return true if SAPI is cli (i.e. php code is running via CLI)
  * NOTE: output may be redirected, this does not check that output is a TTY
  * @return bool
  */
@@ -128,12 +136,19 @@ function badRequest($msg = "Bad Request", $code = 400, $detail = null)
 	}
 }
 
+
+/**
+ * echo a JSON-encoded version of $resp (and set the Content-Type header)
+ * @param $resp
+ */
 function jsonResponse($resp) {
 	header("Content-Type: application/json");
 	echo json_encode($resp);
 }
 
-function render($file, $data) {
+
+function render($file,
+	/** @noinspection PhpUnusedParameterInspection */ $data) {
 	include normalizePath($file);  //$data will be available to view
 }
 
